@@ -773,6 +773,25 @@
             </div>
         </div>
     </div>
+	
+	<div id="lesson-plan-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50 p-4">
+    <div class="bg-white p-6 rounded-lg shadow-xl max-w-4xl w-full h-[90vh] flex flex-col">
+        <div class="flex justify-between items-center mb-4 border-b pb-3">
+            <h3 id="lesson-plan-title" class="text-2xl font-bold text-indigo-700">แผนการสอนที่ AI แนะนำ</h3>
+            <button id="close-lesson-plan-modal-btn" class="text-gray-500 hover:text-red-600 text-3xl">&times;</button>
+        </div>
+        
+        <div id="lesson-plan-content" class="flex-grow overflow-y-auto bg-gray-50 p-8">
+            </div>
+
+        <div class="mt-6 pt-4 border-t flex justify-end gap-3">
+            <button id="close-lesson-plan-modal-footer-btn" class="bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">ปิด</button>
+            <button id="export-lesson-pdf-btn" class="bg-red-600 text-white py-2 px-6 rounded-lg hover:bg-red-700 flex items-center gap-2">
+                <i class="fas fa-file-pdf"></i> Export เป็น PDF
+            </button>
+        </div>
+    </div>
+</div>
 
     <div id="rename-quiz-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
