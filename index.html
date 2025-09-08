@@ -361,8 +361,42 @@
                                         </button>
                                     </div>
                                 </div>
+								
+								       <div id="project-visibility-settings">
+    <h3 class="text-xl font-semibold mb-3 border-b pb-2">การตั้งค่าการแสดงผลโปรเจค</h3>
+    <div class="p-4 bg-gray-50 rounded-lg">
+        <div class="flex items-center">
+            <input id="show-in-student-dashboard-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="show-in-student-dashboard-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
+                แสดงโปรเจคนี้ในหน้า "ผลการเรียนของฉัน" ของนักเรียน
+            </label>
+        </div>
+        <p class="text-xs text-gray-500 mt-2">
+            หากปิดตัวเลือกนี้ นักเรียนจะไม่สามารถเลือกโปรเจคนี้จากหน้าแดชบอร์ดของตนเองได้ (แต่ยังคงทำข้อสอบผ่านรหัสได้ตามปกติ)
+        </p>
+
+        <div class="mt-4 pt-4 border-t">
+            <div class="flex items-center mb-2">
+                <input id="enable-passcode-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                <label for="enable-passcode-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
+                    เปิดใช้งานรหัสผ่านสำหรับโปรเจคนี้
+                </label>
+            </div>
+            <div id="passcode-input-container" class="hidden">
+                <label for="project-passcode-input" class="block text-sm font-medium text-gray-700 mb-1">ตั้งรหัสผ่าน (4-8 ตัวอักษร):</label>
+                <input type="text" id="project-passcode-input" class="w-full p-2 border border-gray-300 rounded-lg" maxlength="8">
+            </div>
+            <p class="text-xs text-red-500 mt-1">คำเตือน: รหัสผ่านนี้มีไว้เพื่อป้องกันการเข้าดูเบื้องต้น ไม่ได้เข้ารหัสอย่างปลอดภัย</p>
+        </div>
+        <button id="save-visibility-settings-btn" class="mt-4 w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition-colors text-sm">
+            <i class="fas fa-save mr-2"></i>บันทึกการตั้งค่าการแสดงผล
+        </button>
+    </div>
+</div>
+								
                                 <!-- Student Management -->
                                 <div>
+								
                                     <h3 class="text-xl font-semibold mb-3 border-b pb-2">จัดการรายชื่อนักเรียน</h3>
                                     <div class="p-4 bg-gray-50 rounded-lg">
                                         <div class="flex flex-col gap-2 mb-3">
@@ -677,6 +711,11 @@
                             <span class="flex-shrink mx-4 text-gray-500">หรือ</span>
                             <div class="flex-grow border-t border-gray-300"></div>
                         </div>
+						
+						<button id="view-my-progress-btn" class="w-full bg-teal-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-teal-700 flex items-center justify-center">
+    <i class="fas fa-chart-line mr-2"></i>ดูผลการเรียนของฉัน
+</button>
+						
                         <button id="join-live-game-btn" class="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-purple-700 flex items-center justify-center">
                             <i class="fas fa-flag-checkered mr-2"></i>เข้าร่วมเกมสด
                         </button>
@@ -712,6 +751,27 @@
                         <i class="fas fa-play-circle mr-2"></i>เริ่มทำแบบทดสอบ
                     </button>
                 </div>
+				
+				<div id="student-progress-view" class="hidden max-w-4xl mx-auto">
+    <button id="back-to-student-home-btn" class="mb-4 text-indigo-600 hover:underline"><i class="fas fa-arrow-left mr-2"></i>กลับหน้าแรก</button>
+    <h2 class="text-2xl font-bold mb-4 text-teal-700 text-center">ผลการเรียนของฉัน</h2>
+
+    <div class="flex flex-col md:flex-row gap-4 mb-6 p-4 bg-gray-100 rounded-lg">
+        <div class="flex-1">
+            <label for="progress-project-select" class="block text-sm font-medium text-gray-700 mb-1">เลือกโปรเจค:</label>
+            <select id="progress-project-select" class="w-full p-2 border border-gray-300 rounded-lg"></select>
+        </div>
+        <div class="flex-1">
+            <label for="progress-student-select" class="block text-sm font-medium text-gray-700 mb-1">เลือกชื่อของคุณ:</label>
+            <select id="progress-student-select" class="w-full p-2 border border-gray-300 rounded-lg" disabled></select>
+        </div>
+    </div>
+
+    <div id="student-progress-content">
+        <p class="text-center text-gray-500">กรุณาเลือกโปรเจคและชื่อของคุณเพื่อดูข้อมูล</p>
+    </div>
+</div>
+				
                 <div id="student-quiz-area" class="mt-6 hidden"></div>
                 <div id="student-result-area" class="mt-6 hidden"></div>
                 <div id="student-reading-area" class="mt-6 hidden"></div>
@@ -1079,6 +1139,19 @@
             </div>
         </div>
     </div>
+	
+	<div id="project-passcode-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full">
+        <h3 class="text-xl font-bold mb-2 text-center">ต้องใช้รหัสผ่าน</h3>
+        <p id="passcode-prompt-message" class="text-center text-gray-600 mb-4"></p>
+        <input type="text" id="student-passcode-input" class="w-full p-3 border border-gray-300 rounded-lg text-center" placeholder="ป้อนรหัสผ่าน">
+        <p id="passcode-error-msg" class="text-red-500 text-sm text-center mt-2 hidden">รหัสผ่านไม่ถูกต้อง</p>
+        <div class="flex justify-end gap-3 mt-6">
+            <button id="cancel-passcode-btn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">ยกเลิก</button>
+            <button id="confirm-passcode-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">เข้าสู่ระบบ</button>
+        </div>
+    </div>
+</div>
 
     <script type="module" src="script.min.js"></script>
 	
