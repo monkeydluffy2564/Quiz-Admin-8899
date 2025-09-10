@@ -362,6 +362,14 @@
                                                 เปิดใช้งานแบบทดสอบปรับพื้นฐาน
                                             </label>
                                         </div>
+										
+										<div class="flex items-center mt-2">
+    <input id="loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+    <label for="loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+        เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
+    </label>
+</div>
+										
                                         <div class="border-t pt-4 mt-2">
                                             <label for="timer-mode-select" class="block text-sm font-medium text-gray-700">ตั้งค่าการจับเวลา:</label>
                                             <select id="timer-mode-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
@@ -598,6 +606,11 @@
                             <button id="leaderboard-quiz-tab-btn" class="main-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-lg text-gray-500 hover:text-gray-700">
                                 <i class="fas fa-trophy mr-2"></i>ตารางผู้นำ
                             </button>
+							
+							        <button id="behavior-log-tab-btn" class="main-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-lg text-gray-500 hover:text-gray-700">
+            <i class="fas fa-user-clock mr-2"></i>บันทึกพฤติกรรม
+        </button>
+							
                         </nav>
                     </div>
 
@@ -709,6 +722,13 @@
         </table>
     </div>
 </div>
+
+<div id="behavior-log-tab-content" class="hidden">
+    <h3 class="text-xl font-semibold mb-4">ประวัติการออกจากหน้าจอระหว่างทำแบบทดสอบ</h3>
+    <div id="behavior-log-container" class="space-y-4">
+        </div>
+</div>
+
                 </div>
             </div>
 
@@ -1030,6 +1050,13 @@
     <input id="modal-adaptive-quiz-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
     <label for="modal-adaptive-quiz-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
         เปิดใช้งานแบบทดสอบปรับพื้นฐาน
+    </label>
+</div>
+
+<div class="flex items-center mt-2">
+    <input id="modal-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+    <label for="modal-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+        เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
     </label>
 </div>
                 <div class="border-t pt-4">
