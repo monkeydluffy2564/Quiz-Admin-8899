@@ -227,7 +227,16 @@ body.dimmed #dim-overlay {
                 <!-- Project Detail View -->
                 <div id="project-detail-view" class="hidden">
                     <button id="back-to-dashboard-btn" class="mb-4 text-indigo-600 hover:underline"><i class="fas fa-arrow-left mr-2"></i>กลับไปหน้า Dashboard</button>
-                    <h2 id="project-title" class="text-3xl font-bold text-indigo-700 mb-2"></h2>
+                    <div class="flex items-center gap-3 mb-2">
+    <h2 id="project-title" 
+        contenteditable="true" 
+        class="text-3xl font-bold text-indigo-700 outline-none focus:ring-2 focus:ring-indigo-300 focus:bg-indigo-50 rounded-md px-2 py-1 transition-all"
+        title="คลิกเพื่อแก้ไขชื่อ">
+    </h2>
+    <button id="save-project-name-btn" class="hidden bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 transition-all text-sm">
+        <i class="fas fa-save mr-2"></i>บันทึก
+    </button>
+</div>
                     <p class="text-sm text-gray-500 mb-6">Project ID: <span id="project-id-display" class="font-mono"></span></p>
                     
                     <!-- Project Tabs -->
@@ -950,7 +959,7 @@ body.dimmed #dim-overlay {
         </div>
     </div>
 
-    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+    <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-[60]">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-sm w-full text-center">
             <i class="fas fa-exclamation-triangle text-4xl text-yellow-500 mb-4"></i>
             <h3 class="text-xl font-bold mb-2">ยืนยันการกระทำ</h3>
@@ -1041,11 +1050,16 @@ body.dimmed #dim-overlay {
      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
   <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
     <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold">คลังแบบทดสอบทั้งหมด
-    <span id="quiz-bank-count" class="text-base font-normal text-gray-500 ml-2"></span>
-</h3>
+    <h3 class="text-xl font-bold">คลังแบบทดสอบทั้งหมด
+        <span id="quiz-bank-count" class="text-base font-normal text-gray-500 ml-2"></span>
+    </h3>
+    <div class="flex items-center gap-4">
+        <button id="bulk-quiz-settings-btn" class="bg-orange-500 text-white py-2 px-3 rounded-lg font-semibold hover:bg-orange-600 text-sm flex items-center gap-2">
+            <i class="fas fa-cogs"></i> ตั้งค่าทั้งหมด
+        </button>
         <button id="cancel-quiz-bank-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
+</div>
 
     <input id="bank-quiz-search-input" type="text"
            class="w-full p-2 border border-gray-300 rounded-lg mb-3"
@@ -1145,6 +1159,43 @@ body.dimmed #dim-overlay {
             </div>
         </div>
     </div>
+	
+	<div id="bulk-quiz-settings-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+        <h3 class="text-xl font-bold mb-4">ตั้งค่าแบบทดสอบทั้งหมดในคลัง</h3>
+        <p class="text-sm text-red-600 mb-4">คำเตือน: การตั้งค่านี้จะถูกนำไปใช้กับแบบทดสอบ **ทุกชุด** ในคลังของคุณ</p>
+        <div class="space-y-4">
+            <div>
+                <label for="bulk-shuffle-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
+                <select id="bulk-shuffle-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="none">ไม่สลับ</option>
+                    <option value="questions_only">สลับเฉพาะข้อ</option>
+                    <option value="choices_only">สลับเฉพาะตัวเลือก</option>
+                    <option value="both">สลับทั้งข้อและตัวเลือก</option>
+                </select>
+            </div>
+            <div>
+                <label for="bulk-results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
+                <select id="bulk-results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
+                    <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
+                    <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
+                    <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
+                </select>
+            </div>
+            <div class="flex items-center mt-2">
+                <input id="bulk-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                <label for="bulk-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                    เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
+                </label>
+            </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+            <button id="cancel-bulk-quiz-settings-btn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">ยกเลิก</button>
+            <button id="confirm-bulk-quiz-settings-btn" class="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700">ยืนยันและอัปเดตทั้งหมด</button>
+        </div>
+    </div>
+</div>
 
 <div id="quiz-editor-modal" class="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white p-6 rounded-lg shadow-xl max-w-4xl w-full h-[90vh] flex flex-col">
