@@ -130,6 +130,19 @@
             transform: translateY(-10px);
         }
 		
+		.live-summary-tooltip {
+    /* ซ่อนไว้เป็นค่าเริ่มต้น */
+    opacity: 0;
+    pointer-events: none; /* ทำให้คลิกทะลุได้เมื่อซ่อนอยู่ */
+    transition: opacity 0.2s ease-in-out;
+}
+
+.live-summary-tooltip.visible {
+    /* ทำให้มองเห็นและคลิกได้ */
+    opacity: 1;
+    pointer-events: auto;
+}
+		
 		/* --- เพิ่มโค้ดส่วนนี้เข้าไปใน <style> --- */
 
 #dim-overlay {
@@ -809,11 +822,11 @@ body.dimmed #dim-overlay {
                      <div class="space-y-4">
                          <div>
                              <label for="game-pin-input" class="block text-sm font-medium text-gray-700 mb-1">รหัสเข้าร่วม (Game PIN):</label>
-                             <input type="number" id="game-pin-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="12">
+                             <input type="number" id="game-pin-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="รหัสเข้าร่วม (4 หลัก)">
                          </div>
                          <div>
                              <label for="nickname-input" class="block text-sm font-medium text-gray-700 mb-1">ชื่อเล่น:</label>
-                             <input type="text" id="nickname-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="ใส่ชื่อของคุณ...">
+                             <input type="text" id="nickname-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="ชื่อเล่น">
                          </div>
                          <button id="confirm-join-game-btn" class="w-full bg-green-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-green-700">
                              <i class="fas fa-sign-in-alt mr-2"></i>เข้าร่วม
