@@ -157,40 +157,53 @@
     border-color: #1d4ed8; /* border-blue-700 */
 }
 
-/* ▼▼▼ 1. แทนที่โค้ด #scratchpad-controls เดิมด้วยโค้ดนี้ ▼▼▼ */
+/* ▼▼▼ วางทับโค้ด #scratchpad-controls เดิมทั้งหมดด้วยโค้ดนี้ ▼▼▼ */
 #scratchpad-controls {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    display: grid; /* เปลี่ยนจาก flex เป็น grid */
-    grid-template-columns: repeat(2, 1fr); /* สร้าง 2 คอลัมน์ */
+    display: flex;
+    flex-wrap: wrap; /* ทำให้ปุ่มขึ้นบรรทัดใหม่ได้บนจอมือถือ */
+    align-items: center;
     gap: 0.5rem; /* ระยะห่างระหว่างปุ่ม */
-    background-color: rgba(243, 244, 246, 0.9); /* bg-gray-100/90 */
-    padding: 0.5rem;
-    border-radius: 0.75rem; /* rounded-xl */
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    border: 1px solid rgba(229, 231, 235, 1);
-    z-index: 30; /* เพิ่ม z-index เพื่อให้ลอยอยู่บนสุด */
+    background-color: #f3f4f6; /* bg-gray-100 */
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid #e5e7eb; /* border-gray-200 */
+    z-index: 30;
 }
 
+/* ▼▼▼ เพิ่มโค้ดส่วนนี้เพื่อจัดกลุ่มปุ่ม และสร้างเส้นแบ่ง ▼▼▼ */
+.tool-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.separator {
+    width: 1px;
+    height: 1.5rem; /* 24px */
+    background-color: #d1d5db; /* bg-gray-300 */
+    margin: 0 0.5rem; /* ระยะห่างซ้ายขวา */
+}
+/* ▲▲▲ สิ้นสุดส่วนที่เพิ่ม ▲▲▲ */
+
+
+/* ▼▼▼ วางทับโค้ด .scratchpad-content-wrapper เดิมด้วยโค้ดนี้ ▼▼▼ */
 .scratchpad-content-wrapper {
     position: relative;
     overflow: hidden;
+    flex-grow: 1; /* คำสั่งสำคัญ: ทำให้ส่วนนี้ขยายเต็มพื้นที่ที่เหลือ */
 }
+
+/* ▼▼▼ วางทับโค้ด #scratchpad-canvas เดิมด้วยโค้ดนี้ ▼▼▼ */
 #scratchpad-canvas {
     position: absolute;
     inset: 0;
     z-index: 10;
 }
+
+/* ▼▼▼ วางทับโค้ด #scratchpad-header เดิมด้วยโค้ดนี้ (ลบ padding-right ที่เคยแก้ออกไป) ▼▼▼ */
 #scratchpad-header {
     position: relative;
     z-index: 20;
-    /* คำสั่งสำคัญ: ทำให้เมาส์คลิกทะลุส่วนหัวข้อความ ไปยัง Canvas ที่อยู่ข้างใต้ได้ */
     pointer-events: none;
-}
-#scratchpad-controls {
-    /* ใช้ grid layout ที่ถูกต้องอยู่แล้ว เพิ่มแค่ z-index */
-    z-index: 30;
+    /* ไม่ต้องใช้ padding-right แล้ว เพราะไม่ซ้อนกัน */
 }
 		
 		/* --- เพิ่มโค้ดส่วนนี้เข้าไปใน <style> --- */
@@ -1303,9 +1316,16 @@ body.dimmed #dim-overlay {
         <div id="presentation-slide-container" class="w-full max-w-5xl h-full flex flex-col items-center justify-center">
             <!-- Slide content will be injected here -->
         </div>
-        <div class="absolute bottom-4 w-full flex justify-between items-center px-8 max-w-5xl mx-auto left-0 right-0">
+<div class="absolute bottom-4 w-full flex justify-between items-center px-8 max-w-5xl mx-auto left-0 right-0">
             <button id="prev-question-btn" class="bg-indigo-600 py-2 px-5 rounded-lg hover:bg-indigo-700 disabled:bg-gray-500 disabled:cursor-not-allowed"><i class="fas fa-arrow-left mr-2"></i>ก่อนหน้า</button>
-            <div id="slide-counter" class="text-lg font-semibold"></div>
+            
+            <div class="flex-grow flex justify-center items-center gap-8">
+                <div id="slide-counter" class="text-lg font-semibold"></div>
+                <button id="presentation-scratchpad-btn" class="bg-white/20 hover:bg-white/40 text-white font-bold py-2 px-5 rounded-lg text-lg flex items-center gap-2" title="กระดานทดเลข">
+                    <i class="fas fa-pencil-alt"></i> ทดเลข
+                </button>
+            </div>
+            
             <button id="next-question-btn" class="bg-indigo-600 py-2 px-5 rounded-lg hover:bg-indigo-700 disabled:bg-gray-500 disabled:cursor-not-allowed">ถัดไป<i class="fas fa-arrow-right ml-2"></i></button>
         </div>
     </div>
@@ -1364,51 +1384,18 @@ body.dimmed #dim-overlay {
 
 <!-- ▼▼▼ 3.1 แทนที่ <div id="scratchpad-modal"> เดิมทั้งหมดด้วยโค้ดนี้ ▼▼▼ -->
 <div id="scratchpad-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
-    <div class="bg-white w-full h-full rounded-lg shadow-xl flex flex-col relative scratchpad-content-wrapper">
+    <div class="bg-white w-full h-full rounded-lg shadow-xl flex flex-col overflow-hidden">
         
-        <!-- Canvas จะทำหน้าที่เป็นพื้นหลังเต็มพื้นที่ -->
-        <canvas id="scratchpad-canvas" class="absolute top-0 left-0"></canvas>
+        <div id="scratchpad-controls" class="flex-shrink-0">
+             </div>
 
-        <!-- Header (โจทย์) จะลอยอยู่ด้านบนของ Canvas -->
-        <div id="scratchpad-header" class="p-4 sm:p-6 border-b flex-shrink-0">
-            <h3 id="scratchpad-question" class="text-xl sm:text-2xl font-bold text-gray-800"></h3>
-            <div id="scratchpad-options" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mt-3 text-gray-700">
+        <div class="scratchpad-content-wrapper flex-grow relative">
+            <canvas id="scratchpad-canvas" class="absolute inset-0 z-10"></canvas>
+            <div id="scratchpad-header" class="p-4 sm:p-6 relative z-20 pointer-events-none">
+                <h3 id="scratchpad-question" class="text-xl sm:text-2xl font-bold text-gray-800"></h3>
+                <div id="scratchpad-options" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 mt-3 text-gray-700">
+                </div>
             </div>
-        </div>
-
-        <!-- ปุ่มควบคุมจะถูกย้ายมาที่นี่ และจะลอยอยู่บนสุด -->
-        <div id="scratchpad-controls" class="absolute top-2 right-2 flex flex-col items-center gap-2 bg-gray-100 p-2 rounded-lg shadow-md border">
-             <button id="scratchpad-close-btn" class="bg-red-500 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg hover:bg-red-600" title="ปิดกระดานทดเลข">
-                <i class="fas fa-times"></i>
-            </button>
-			<button id="undo-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-lg border-2 disabled:opacity-50" title="ย้อนกลับ" disabled>
-                <i class="fas fa-undo"></i>
-            </button>
-            <button id="redo-btn" class="w-10 h-10 rounded-full flex items-center justify-center text-lg border-2 disabled:opacity-50" title="ทำซ้ำ" disabled>
-                <i class="fas fa-redo"></i>
-            </button>
-            <div class="w-full border-t my-1"></div>
-            <button id="pen-tool-btn" class="tool-btn active w-10 h-10 rounded-full flex items-center justify-center text-lg border-2" title="ปากกา">
-                <i class="fas fa-pencil-alt"></i>
-            </button>
-            <button id="eraser-tool-btn" class="tool-btn w-10 h-10 rounded-full flex items-center justify-center text-lg border-2" title="ยางลบ">
-                <i class="fas fa-eraser"></i>
-            </button>
-			<button id="laser-tool-btn" class="tool-btn w-10 h-10 rounded-full flex items-center justify-center text-lg border-2" title="ปากกาเลเซอร์">
-    <i class="fas fa-magic"></i>
-</button>
-            <div class="w-full border-t my-1"></div>
-            <button class="pen-size-btn w-10 h-10 rounded-full flex items-center justify-center text-xs font-bold border-2" data-size="2" title="ปากกา/ยางลบขนาดเล็ก">S</button>
-            <button class="pen-size-btn active w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold border-2" data-size="5" title="ปากกา/ยางลบขนาดกลาง">M</button>
-            <button class="pen-size-btn w-10 h-10 rounded-full flex items-center justify-center text-base font-bold border-2" data-size="10" title="ปากกา/ยางลบขนาดใหญ่">L</button>
-            <div class="w-full border-t my-1"></div>
-			<button class="pen-color-btn w-10 h-10 rounded-full border-2 border-gray-400" data-color="#000000" style="background-color: #000000;" title="สีดำ"></button>
-            <button class="pen-color-btn w-10 h-10 rounded-full border-2" data-color="#EF4444" style="background-color: #EF4444;" title="สีแดง"></button>
-            <button class="pen-color-btn w-10 h-10 rounded-full border-2" data-color="#3B82F6" style="background-color: #3B82F6;" title="สีน้ำเงิน"></button>
-            <div class="w-full border-t my-1"></div>
-            <button id="scratchpad-clear-btn" class="bg-yellow-500 text-white w-10 h-10 rounded-full flex items-center justify-center text-lg hover:bg-yellow-600" title="ลบทั้งหมด">
-                <i class="fas fa-trash-alt"></i>
-            </button>
         </div>
     </div>
 </div>
