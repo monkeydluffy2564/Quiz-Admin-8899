@@ -156,6 +156,21 @@
     color: white;
     border-color: #1d4ed8; /* border-blue-700 */
 }
+
+/* ▼▼▼ แทนที่โค้ด #scratchpad-controls เดิมด้วยโค้ดนี้ ▼▼▼ */
+#scratchpad-controls {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: grid; /* เปลี่ยนจาก flex เป็น grid */
+    grid-template-columns: repeat(2, 1fr); /* สร้าง 2 คอลัมน์ */
+    gap: 0.5rem; /* ระยะห่างระหว่างปุ่ม */
+    background-color: rgba(243, 244, 246, 0.9); /* bg-gray-100/90 */
+    padding: 0.5rem;
+    border-radius: 0.75rem; /* rounded-xl */
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border: 1px solid rgba(229, 231, 235, 1);
+}
 		
 		/* --- เพิ่มโค้ดส่วนนี้เข้าไปใน <style> --- */
 
