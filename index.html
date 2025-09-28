@@ -198,15 +198,30 @@
     z-index: 10;
 }
 
+/* ▼▼▼ วางทับโค้ดส่วนนี้ทั้งหมด ▼▼▼ */
 #scratchpad-header {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 500%; /* << ใหญ่ขึ้น 5 เท่า */
+    height: 500%; /* << ใหญ่ขึ้น 5 เท่า */
+    transform: scale(0.2); /* << ย่อกลับ 1/5 */
+    transform-origin: 0 0;
+
     z-index: 20;
     pointer-events: none;
-    /* ▼▼▼ เพิ่ม 3 บรรทัดนี้เข้าไป ▼▼▼ */
     will-change: transform;
-    transform: translateZ(0);
-    backface-visibility: hidden;
 }
+
+#scratchpad-question {
+    font-size: 10rem; /* << ใหญ่ขึ้น 5 เท่า (2rem * 5) */
+    line-height: 1.2;
+}
+#scratchpad-options {
+    font-size: 5.625rem; /* << ใหญ่ขึ้น 5 เท่า (1.125rem * 5) */
+    line-height: 1.5;
+}
+/* ▲▲▲ สิ้นสุดการวางทับ ▲▲▲ */
 		
 		/* --- เพิ่มโค้ดส่วนนี้เข้าไปใน <style> --- */
 
