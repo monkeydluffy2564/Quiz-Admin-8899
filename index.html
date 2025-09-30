@@ -1423,6 +1423,21 @@ body.dimmed #dim-overlay {
     </div>
 </div>
 
+<div id="confidence-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl p-8 text-center max-w-sm w-full">
+        <p class="text-xl font-semibold text-gray-800 mb-6">คุณมั่นใจในคำตอบนี้แค่ไหน?</p>
+        <div class="flex justify-center gap-4">
+            <button id="confirm-not-confident" class="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-gray-600 transition-transform hover:scale-105">
+                <i class="far fa-meh mr-2"></i>ไม่มั่นใจ
+            </button>
+            <button id="confirm-confident" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-green-700 transition-transform hover:scale-105">
+                <i class="far fa-smile-beam mr-2"></i>มั่นใจ
+            </button>
+        </div>
+        <input type="hidden" id="selected-answer-index-hidden">
+    </div>
+</div>
+
 <!-- ▼▼▼ 3.1 แทนที่ <div id="scratchpad-modal"> เดิมทั้งหมดด้วยโค้ดนี้ ▼▼▼ -->
 <div id="scratchpad-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 sm:p-6 md:p-8">
     <div class="bg-white w-full h-full rounded-lg shadow-xl flex flex-col overflow-hidden">
