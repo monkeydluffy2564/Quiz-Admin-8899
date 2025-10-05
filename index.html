@@ -231,6 +231,23 @@ body.dimmed #dim-overlay {
     color: white;
     border-color: #1d4ed8; /* border-blue-700 */
 }
+
+.confidence-choice-btn {
+    background-color: #f3f4f6; /* bg-gray-100 */
+    color: #4b5563; /* text-gray-600 */
+    border: 1px solid #d1d5db; /* border-gray-300 */
+    transition: all 0.2s;
+}
+.confidence-choice-btn.active.confident {
+    background-color: #10b981; /* bg-emerald-500 */
+    color: white;
+    border-color: #059669; /* border-emerald-700 */
+}
+.confidence-choice-btn.active.not-confident {
+    background-color: #6b7280; /* bg-gray-500 */
+    color: white;
+    border-color: #4b5563; /* border-gray-600 */
+}
 		
     </style>
 </head>
@@ -1293,32 +1310,48 @@ body.dimmed #dim-overlay {
     <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
         <h3 class="text-xl font-bold mb-4">ตั้งค่าแบบทดสอบทั้งหมดในคลัง</h3>
         <p class="text-sm text-red-600 mb-4">คำเตือน: การตั้งค่านี้จะถูกนำไปใช้กับแบบทดสอบ **ทุกชุด** ในคลังของคุณ</p>
-        <div class="space-y-4">
-            <div>
-                <label for="bulk-shuffle-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
-                <select id="bulk-shuffle-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="none">ไม่สลับ</option>
-                    <option value="questions_only">สลับเฉพาะข้อ</option>
-                    <option value="choices_only">สลับเฉพาะตัวเลือก</option>
-                    <option value="both">สลับทั้งข้อและตัวเลือก</option>
-                </select>
-            </div>
-            <div>
-                <label for="bulk-results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
-                <select id="bulk-results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                    <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
-                    <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
-                    <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
-                    <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
-                </select>
-            </div>
-            <div class="flex items-center mt-2">
-                <input id="bulk-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                <label for="bulk-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-                    เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
-                </label>
-            </div>
+<div class="space-y-4">
+    <div>
+        <label for="bulk-shuffle-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
+        <select id="bulk-shuffle-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="none">ไม่สลับ</option>
+            <option value="questions_only">สลับเฉพาะข้อ</option>
+            <option value="choices_only">สลับเฉพาะตัวเลือก</option>
+            <option value="both">สลับทั้งข้อและตัวเลือก</option>
+        </select>
+    </div>
+    <div>
+        <label for="bulk-results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
+        <select id="bulk-results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
+            <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
+            <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
+            <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
+        </select>
+    </div>
+    <div class="flex items-center mt-2">
+        <input id="bulk-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="bulk-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+            เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
+        </label>
+    </div>
+
+    <div class="p-3 border-t border-gray-200 mt-2 space-y-2 bg-indigo-50 rounded-lg">
+        <div class="flex items-center">
+            <input id="bulk-confidence-scoring-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="bulk-confidence-scoring-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                เปิดใช้งานระบบคะแนนตามความมั่นใจ
+            </label>
         </div>
+        <div id="bulk-confidence-mode-container" class="hidden pl-6">
+            <label for="bulk-confidence-mode-select" class="block text-xs font-medium text-gray-600">รูปแบบ:</label>
+            <select id="bulk-confidence-mode-select" class="mt-1 w-full p-1 text-sm border border-gray-300 rounded-lg">
+                <option value="checkbox">กล่องตัวเลือก (ติ๊กหรือไม่ก็ได้)</option>
+                <option value="mandatory">บังคับเลือก (มั่นใจ/ไม่มั่นใจ)</option>
+            </select>
+        </div>
+    </div>
+    </div>
         <div class="flex justify-end gap-3 mt-6">
             <button id="cancel-bulk-quiz-settings-btn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">ยกเลิก</button>
             <button id="confirm-bulk-quiz-settings-btn" class="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700">ยืนยันและอัปเดตทั้งหมด</button>
@@ -1452,31 +1485,17 @@ body.dimmed #dim-overlay {
     </div>
 </div>
 
-<div id="confidence-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+<div id="confidence-modal" data-current-mode="" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
     <div class="bg-white rounded-lg shadow-xl p-8 text-center max-w-sm w-full">
         <p class="text-xl font-semibold text-gray-800 mb-6">คุณมั่นใจในคำตอบนี้แค่ไหน?</p>
-        <div class="flex justify-center gap-4">
-            <button id="confirm-not-confident" class="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-gray-600 transition-transform hover:scale-105">
-                <i class="far fa-meh mr-2"></i>ไม่มั่นใจ
-            </button>
-            <button id="confirm-confident" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-green-700 transition-transform hover:scale-105">
-                <i class="far fa-smile-beam mr-2"></i>มั่นใจ
-            </button>
-        </div>
-        <input type="hidden" id="selected-answer-index-hidden">
-    </div>
+ <div class="flex justify-center gap-4">
+    <button id="confirm-confident" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-green-700 transition-transform hover:scale-105">
+        <i class="far fa-smile-beam mr-2"></i>มั่นใจ
+    </button>
+    <button id="confirm-not-confident" class="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-gray-600 transition-transform hover:scale-105">
+        <i class="far fa-meh mr-2"></i>ไม่มั่นใจ
+    </button>
 </div>
-<div id="confidence-modal" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-xl p-8 text-center max-w-sm w-full">
-        <p class="text-xl font-semibold text-gray-800 mb-6">คุณมั่นใจในคำตอบนี้แค่ไหน?</p>
-        <div class="flex justify-center gap-4">
-            <button id="confirm-not-confident" class="flex-1 bg-gray-500 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-gray-600 transition-transform hover:scale-105">
-                <i class="far fa-meh mr-2"></i>ไม่มั่นใจ
-            </button>
-            <button id="confirm-confident" class="flex-1 bg-green-600 text-white py-3 px-6 rounded-lg text-lg font-bold hover:bg-green-700 transition-transform hover:scale-105">
-                <i class="far fa-smile-beam mr-2"></i>มั่นใจ
-            </button>
-        </div>
         <input type="hidden" id="selected-answer-index-hidden">
     </div>
 </div>
