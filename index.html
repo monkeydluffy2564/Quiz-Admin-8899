@@ -670,6 +670,15 @@ body.dimmed #dim-overlay {
                                     <div id="file-input-area" class="hidden space-y-4">
     <label for="file-upload-input" class="block text-sm font-medium text-gray-700">เลือกไฟล์ PDF หรือ Word (.docx):</label>
     <input type="file" id="file-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf,.docx">
+	
+	    <div class="flex items-center my-3 p-3 bg-indigo-50 rounded-lg">
+        <input id="original-mode-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="original-mode-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
+            สร้างตามรูปแบบต้นฉบับ (Original Mode)
+            <p class="text-xs text-gray-500">AI จะวิเคราะห์และสร้างประเภทคำถามตามไฟล์ต้นฉบับแต่ละข้อโดยอัตโนมัติ</p>
+        </label>
+    </div>
+	
     <input type="text" id="file-topic-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="ระบุหัวข้อ (เพื่อความแม่นยำ)...">
     <p class="text-xs text-gray-500">ไฟล์จะถูกประมวลผลในเบราว์เซอร์ของคุณ ไม่มีการอัปโหลดขึ้นเซิร์ฟเวอร์</p>
 
