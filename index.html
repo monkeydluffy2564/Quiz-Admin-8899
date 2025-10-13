@@ -616,6 +616,24 @@ body.dimmed #dim-overlay {
     <label for="blueprint-upload-input" class="block text-sm font-medium text-gray-700">เลือกไฟล์ Test Blueprint (.pdf):</label>
     <input type="file" id="blueprint-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf">
 	
+	<div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+    
+    <div class="flex items-center p-3 bg-indigo-50 rounded-lg">
+        <input id="separate-by-content-checkbox" type="checkbox" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="separate-by-content-checkbox" class="ml-3 block font-medium text-gray-800">
+            ✅ สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
+        </label>
+    </div>
+
+    <div id="blueprint-topics-list-container" class="hidden p-3 border rounded-md bg-white">
+        <p class="text-sm font-semibold mb-2 text-gray-700">กรุณาเลือกหัวข้อที่ต้องการสร้างแบบทดสอบ:</p>
+        <div id="blueprint-topics-list" class="space-y-2">
+            <p class="text-gray-400">กำลังวิเคราะห์หัวข้อ...</p>
+        </div>
+        <p class="text-xs text-gray-500 mt-3">*จำนวนข้อและรูปแบบจะอิงตามการตั้งค่าปัจจุบัน ไม่ใช่จาก Blueprint</p>
+    </div>
+</div>
+	
 	<div class="mt-4 pt-4 border-t">
     <label for="reference-pdf-upload" class="block text-sm font-medium text-gray-700">
         (แนะนำ) แนบไฟล์ข้อสอบตัวอย่างเพื่ออ้างอิงความยาก (.pdf):
