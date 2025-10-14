@@ -361,187 +361,198 @@ body.dimmed #dim-overlay {
                                 <!-- Quiz Settings -->
                                 <div>
                                     <h3 class="text-xl font-semibold mb-3 border-b pb-2">ตั้งค่าแบบทดสอบ (สำหรับสร้างใหม่)</h3>
-                                    <div class="space-y-4 p-4 bg-gray-50 rounded-lg">
-                                        <div>
-                                            <label for="quiz-type-select" class="block text-sm font-medium text-gray-700">ประเภทคำถาม:</label>
-                                            <select id="quiz-type-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                                <optgroup label="ทั่วไป">
-                                                    <option value="multiple_choice">แบบเลือกตอบ (ก, ข, ค, ง)</option>
-                                                    <option value="matching">แบบจับคู่ (แยกข้อ)</option>
-                                                    <option value="true_false">แบบถูก/ผิด</option>
-                                                </optgroup>
-                                                <optgroup label="แบบเติมคำ">
-                                                    <option value="fill_in_with_choices">เติมคำ (มีตัวเลือกให้)</option>
-                                                    <option value="fill_in_no_choices">เติมคำ (พิมพ์ตอบเอง)</option>
-                                                    <option value="mixed">แบบผสม (เลือกตอบและเติมคำ)</option>
-                                                </optgroup>
-                                            </select>
-                                        </div>
-										
-										<div>
-    <label for="difficulty-level-select" class="block text-sm font-medium text-gray-700">ระดับชั้น/ความยาก:</label>
-    <select id="difficulty-level-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-        <option value="auto" selected>อัตโนมัติ (ตามหัวข้อ)</option>
-        
-        <optgroup label="🧒 ระดับปฐมวัย">
-            <option value="อนุบาล 1">อนุบาล 1 (K1)</option>
-            <option value="อนุบาล 2">อนุบาล 2 (K2)</option>
-            <option value="อนุบาล 3">อนุบาล 3 (K3)</option>
-        </optgroup>
-
-        <optgroup label="📗 ระดับประถมศึกษา">
-            <option value="ประถมศึกษาปีที่ 1">ประถมศึกษาปีที่ 1 (ป.1)</option>
-            <option value="ประถมศึกษาปีที่ 2">ประถมศึกษาปีที่ 2 (ป.2)</option>
-            <option value="ประถมศึกษาปีที่ 3">ประถมศึกษาปีที่ 3 (ป.3)</option>
-            <option value="ประถมศึกษาปีที่ 4">ประถมศึกษาปีที่ 4 (ป.4)</option>
-            <option value="ประถมศึกษาปีที่ 5">ประถมศึกษาปีที่ 5 (ป.5)</option>
-            <option value="ประถมศึกษาปีที่ 6">ประถมศึกษาปีที่ 6 (ป.6)</option>
-        </optgroup>
-        
-        <optgroup label="📘 ระดับมัธยมศึกษา">
-            <option value="มัธยมศึกษาปีที่ 1">มัธยมศึกษาปีที่ 1 (ม.1)</option>
-            <option value="มัธยมศึกษาปีที่ 2">มัธยมศึกษาปีที่ 2 (ม.2)</option>
-            <option value="มัธยมศึกษาปีที่ 3">มัธยมศึกษาปีที่ 3 (ม.3)</option>
-            <option value="มัธยมศึกษาปีที่ 4">มัธยมศึกษาปีที่ 4 (ม.4)</option>
-            <option value="มัธยมศึกษาปีที่ 5">มัธยมศึกษาปีที่ 5 (ม.5)</option>
-            <option value="มัธยมศึกษาปีที่ 6">มัธยมศึกษาปีที่ 6 (ม.6)</option>
-        </optgroup>
-
-        <optgroup label="🎓 ระดับอุดมศึกษา">
-            <option value="ระดับปริญญาตรี">ปริญญาตรี</option>
-            <option value="ระดับปริญญาโท">ปริญญาโท</option>
-            <option value="ระดับปริญญาเอก">ปริญญาเอก</option>
-        </optgroup>
-    </select>
-</div>
-
-<div>
-    <label for="question-complexity-select" class="block text-sm font-medium text-gray-700">ระดับความซับซ้อนของคำถาม (Bloom's Taxonomy):</label>
-    <select id="question-complexity-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-        <option value="mixed" selected>แบบคละ (อัตโนมัติ)</option>
-        <option value="remembering">ระดับการจำ (Remembering)</option>
-        <option value="understanding">ระดับความเข้าใจ (Understanding)</option>
-        <option value="applying">ระดับการนำไปใช้ (Applying)</option>
-        <option value="analyzing">ระดับการวิเคราะห์ (Analyzing)</option>
-        <option value="evaluating">ระดับการประเมินค่า (Evaluating)</option>
-        <option value="creating">ระดับการสร้างสรรค์ (Creating)</option>
-    </select>
-</div>
-
-<div>
-    <label class="block text-sm font-medium text-gray-700">เจาะจงหัวข้อคณิตศาสตร์ (เลือกได้หลายข้อ):</label>
-    <details class="mt-1 border border-gray-300 rounded-lg bg-white">
-        <summary class="p-2 cursor-pointer text-gray-500">
-            คลิกเพื่อเลือกหัวข้อ... <span id="selected-topics-count" class="font-bold text-indigo-600"></span>
-        </summary>
-        
-        <div class="sticky top-0 bg-white p-2 border-b border-gray-200 flex justify-between items-center gap-4">
-            <input type="text" id="math-topic-search-input" placeholder="ค้นหาหัวข้อ..." class="w-full p-2 border border-gray-300 rounded-lg text-sm">
-            <div class="flex items-center gap-3 shrink-0">
-                <button id="select-all-topics-btn" class="text-xs font-semibold text-blue-600 hover:underline">เลือกทั้งหมด</button>
-                <button id="deselect-all-topics-btn" class="text-xs font-semibold text-gray-500 hover:underline">ยกเลิกทั้งหมด</button>
-            </div>
-        </div>
-        <div id="math-topics-checkbox-container" class="p-3 max-h-60 overflow-y-auto">
-            <p class="text-gray-400">กำลังโหลดรายการ...</p>
-        </div>
-    </details>
-</div>
-
-<div class="mt-3 p-3 bg-gray-100 rounded-lg">
-    <label for="custom-math-topic-input" class="block text-sm font-medium text-gray-700 mb-1">
-        เพิ่มหัวข้อของคุณเอง:
-    </label>
-    <div class="flex items-center gap-2">
-        <input type="text" id="custom-math-topic-input" placeholder="เช่น ทฤษฎีบทเศษเหลือ..." class="w-full p-2 border border-gray-300 rounded-lg text-sm">
-        <button id="add-custom-math-topic-btn" class="bg-blue-600 text-white py-2 px-3 rounded-lg font-semibold hover:bg-blue-700 text-sm shrink-0">
-            <i class="fas fa-plus"></i> เพิ่ม
-        </button>
-    </div>
-</div>								
-	
-                                        <div class="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label for="num-questions" class="block text-sm font-medium text-gray-700">จำนวนข้อ:</label>
-                                                <input type="number" id="num-questions" value="5" min="1" max="20" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                            </div>
-                                            <div>
-                                                <label for="passing-score-input" class="block text-sm font-medium text-gray-700">คะแนนที่ผ่าน:</label>
-                                                <input type="number" id="passing-score-input" value="3" min="0" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                            </div>
-                                        </div>
-                                        <div id="num-choices-container">
-                                            <label for="num-choices" class="block text-sm font-medium text-gray-700">จำนวนตัวเลือก:</label>
-                                            <input type="number" id="num-choices" value="4" min="2" max="6" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                        </div>
-                                        <div>
-                                            <label for="shuffle-setting-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
-                                            <select id="shuffle-setting-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                                <option value="none">ไม่สลับ</option>
-                                                <option value="questions_only">สลับเฉพาะข้อ</option>
-                                                <option value="choices_only">สลับเฉพาะตัวเลือก</option>
-                                                <option value="both">สลับทั้งข้อและตัวเลือก</option>
-                                            </select>
-                                        </div>
-                                        <div>
-    <label for="results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
-<select id="results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-    <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
-    <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
-    <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
-    <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
-
-    <optgroup label="รูปแบบเพิ่มเติม (ไอเดียใหม่)">
-        <option value="half_mark_status">แสดงผลแบบต่ำกว่าครึ่ง/เกินครึ่ง</option>
-        <option value="perfect_score_status">แสดงผลแบบคะแนนเต็ม/ไม่เต็ม</option>
-    </optgroup>
-    </select>
-</div>
-                                        <!-- Adaptive Quiz Checkbox -->
-                                        <div class="flex items-center mt-2">
-                                            <input id="adaptive-quiz-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                            <label for="adaptive-quiz-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-                                                เปิดใช้งานแบบทดสอบปรับพื้นฐาน
-                                            </label>
-                                        </div>
-										
-										<div class="flex items-center mt-2">
-    <input id="loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-    <label for="loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-        เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
-    </label>
-</div>
-<div class="p-3 border-t border-gray-200 mt-2 space-y-2 bg-indigo-50 rounded-lg">
-    <div class="flex items-center">
-        <input id="confidence-scoring-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-        <label for="confidence-scoring-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-            เปิดใช้งานระบบคะแนนตามความมั่นใจ
-        </label>
-    </div>
-    <div id="confidence-mode-container" class="hidden pl-6">
-        <label for="confidence-mode-select" class="block text-xs font-medium text-gray-600">รูปแบบ:</label>
-        <select id="confidence-mode-select" class="mt-1 w-full p-1 text-sm border border-gray-300 rounded-lg">
-            <option value="checkbox">กล่องตัวเลือก (ติ๊กหรือไม่ก็ได้)</option>
-            <option value="mandatory">บังคับเลือก (มั่นใจ/ไม่มั่นใจ)</option>
+<div class="space-y-4 p-4 bg-gray-50 rounded-lg">
+    <div>
+        <label for="quiz-type-select" class="block text-sm font-medium text-gray-700">ประเภทคำถาม:</label>
+        <select id="quiz-type-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <optgroup label="ทั่วไป">
+                <option value="multiple_choice">แบบเลือกตอบ (ก, ข, ค, ง)</option>
+                <option value="matching">แบบจับคู่ (แยกข้อ)</option>
+                <option value="true_false">แบบถูก/ผิด</option>
+            </optgroup>
+            <optgroup label="แบบเติมคำ">
+                <option value="fill_in_with_choices">เติมคำ (มีตัวเลือกให้)</option>
+                <option value="fill_in_no_choices">เติมคำ (พิมพ์ตอบเอง)</option>
+                <option value="mixed">แบบผสม (เลือกตอบและเติมคำ)</option>
+            </optgroup>
         </select>
     </div>
+
+    <div>
+        <label for="difficulty-level-select" class="block text-sm font-medium text-gray-700">ระดับชั้น/ความยาก:</label>
+        <select id="difficulty-level-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="auto" selected>อัตโนมัติ (ตามหัวข้อ)</option>
+            
+            <optgroup label="🧒 ระดับปฐมวัย">
+                <option value="อนุบาล 1">อนุบาล 1 (K1)</option>
+                <option value="อนุบาล 2">อนุบาล 2 (K2)</option>
+                <option value="อนุบาล 3">อนุบาล 3 (K3)</option>
+            </optgroup>
+
+            <optgroup label="📗 ระดับประถมศึกษา">
+                <option value="ประถมศึกษาปีที่ 1">ประถมศึกษาปีที่ 1 (ป.1)</option>
+                <option value="ประถมศึกษาปีที่ 2">ประถมศึกษาปีที่ 2 (ป.2)</option>
+                <option value="ประถมศึกษาปีที่ 3">ประถมศึกษาปีที่ 3 (ป.3)</option>
+                <option value="ประถมศึกษาปีที่ 4">ประถมศึกษาปีที่ 4 (ป.4)</option>
+                <option value="ประถมศึกษาปีที่ 5">ประถมศึกษาปีที่ 5 (ป.5)</option>
+                <option value="ประถมศึกษาปีที่ 6">ประถมศึกษาปีที่ 6 (ป.6)</option>
+            </optgroup>
+            
+            <optgroup label="📘 ระดับมัธยมศึกษา">
+                <option value="มัธยมศึกษาปีที่ 1">มัธยมศึกษาปีที่ 1 (ม.1)</option>
+                <option value="มัธยมศึกษาปีที่ 2">มัธยมศึกษาปีที่ 2 (ม.2)</option>
+                <option value="มัธยมศึกษาปีที่ 3">มัธยมศึกษาปีที่ 3 (ม.3)</option>
+                <option value="มัธยมศึกษาปีที่ 4">มัธยมศึกษาปีที่ 4 (ม.4)</option>
+                <option value="มัธยมศึกษาปีที่ 5">มัธยมศึกษาปีที่ 5 (ม.5)</option>
+                <option value="มัธยมศึกษาปีที่ 6">มัธยมศึกษาปีที่ 6 (ม.6)</option>
+            </optgroup>
+
+            <optgroup label="🎓 ระดับอุดมศึกษา">
+                <option value="ระดับปริญญาตรี">ปริญญาตรี</option>
+                <option value="ระดับปริญญาโท">ปริญญาโท</option>
+                <option value="ระดับปริญญาเอก">ปริญญาเอก</option>
+            </optgroup>
+        </select>
+    </div>
+
+    <div>
+        <label for="question-complexity-select" class="block text-sm font-medium text-gray-700">ระดับความซับซ้อนของคำถาม (Bloom's Taxonomy):</label>
+        <select id="question-complexity-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="mixed" selected>แบบคละ (อัตโนมัติ)</option>
+            <option value="remembering">ระดับการจำ (Remembering)</option>
+            <option value="understanding">ระดับความเข้าใจ (Understanding)</option>
+            <option value="applying">ระดับการนำไปใช้ (Applying)</option>
+            <option value="analyzing">ระดับการวิเคราะห์ (Analyzing)</option>
+            <option value="evaluating">ระดับการประเมินค่า (Evaluating)</option>
+            <option value="creating">ระดับการสร้างสรรค์ (Creating)</option>
+        </select>
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium text-gray-700">เจาะจงหัวข้อคณิตศาสตร์ (เลือกได้หลายข้อ):</label>
+        <details class="mt-1 border border-gray-300 rounded-lg bg-white">
+            <summary class="p-2 cursor-pointer text-gray-500">
+                คลิกเพื่อเลือกหัวข้อ... <span id="selected-topics-count" class="font-bold text-indigo-600"></span>
+            </summary>
+            
+            <div class="sticky top-0 bg-white p-2 border-b border-gray-200 flex justify-between items-center gap-4">
+                <input type="text" id="math-topic-search-input" placeholder="ค้นหาหัวข้อ..." class="w-full p-2 border border-gray-300 rounded-lg text-sm">
+                <div class="flex items-center gap-3 shrink-0">
+                    <button id="select-all-topics-btn" class="text-xs font-semibold text-blue-600 hover:underline">เลือกทั้งหมด</button>
+                    <button id="deselect-all-topics-btn" class="text-xs font-semibold text-gray-500 hover:underline">ยกเลิกทั้งหมด</button>
+                </div>
+            </div>
+            <div id="math-topics-checkbox-container" class="p-3 max-h-60 overflow-y-auto">
+                <p class="text-gray-400">กำลังโหลดรายการ...</p>
+            </div>
+        </details>
+    </div>
+
+    <div class="mt-3 p-3 bg-gray-100 rounded-lg">
+        <label for="custom-math-topic-input" class="block text-sm font-medium text-gray-700 mb-1">
+            เพิ่มหัวข้อของคุณเอง:
+        </label>
+        <div class="flex items-center gap-2">
+            <input type="text" id="custom-math-topic-input" placeholder="เช่น ทฤษฎีบทเศษเหลือ..." class="w-full p-2 border border-gray-300 rounded-lg text-sm">
+            <button id="add-custom-math-topic-btn" class="bg-blue-600 text-white py-2 px-3 rounded-lg font-semibold hover:bg-blue-700 text-sm shrink-0">
+                <i class="fas fa-plus"></i> เพิ่ม
+            </button>
+        </div>
+    </div>								
+
+    <div class="grid grid-cols-2 gap-4">
+        <div>
+            <label for="num-questions" class="block text-sm font-medium text-gray-700">จำนวนข้อ:</label>
+            <input type="number" id="num-questions" value="5" min="1" max="20" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+        </div>
+        <div>
+            <label for="passing-score-input" class="block text-sm font-medium text-gray-700">คะแนนที่ผ่าน:</label>
+            <input type="number" id="passing-score-input" value="3" min="0" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+        </div>
+    </div>
+    <div id="num-choices-container">
+        <label for="num-choices" class="block text-sm font-medium text-gray-700">จำนวนตัวเลือก:</label>
+        <input type="number" id="num-choices" value="4" min="2" max="6" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+    </div>
+    <div>
+        <label for="shuffle-setting-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
+        <select id="shuffle-setting-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="none">ไม่สลับ</option>
+            <option value="questions_only">สลับเฉพาะข้อ</option>
+            <option value="choices_only">สลับเฉพาะตัวเลือก</option>
+            <option value="both">สลับทั้งข้อและตัวเลือก</option>
+        </select>
+    </div>
+    <div>
+        <label for="results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
+        <select id="results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
+            <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
+            <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
+            <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
+            <optgroup label="รูปแบบเพิ่มเติม (ไอเดียใหม่)">
+                <option value="half_mark_status">แสดงผลแบบต่ำกว่าครึ่ง/เกินครึ่ง</option>
+                <option value="perfect_score_status">แสดงผลแบบคะแนนเต็ม/ไม่เต็ม</option>
+            </optgroup>
+        </select>
+    </div>
+    <div class="flex items-center mt-2">
+        <input id="adaptive-quiz-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="adaptive-quiz-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+            เปิดใช้งานแบบทดสอบปรับพื้นฐาน
+        </label>
+    </div>
+    
+    <div class="flex items-center mt-2">
+        <input id="loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+            เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
+        </label>
+    </div>
+
+    <div class="flex items-center mt-2">
+        <input id="force-math-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="force-math-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+            สร้างแบบทดสอบตามหัวข้อปกติ (ไม่บังคับคณิตศาสตร์)
+        </label>
+    </div>
+    <div class="flex items-center mt-2">
+        <input id="include-images-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+        <label for="include-images-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+            สร้างคำถามพร้อมรูปภาพ (สำหรับเรขาคณิต, กราฟ, ฯลฯ)
+        </label>
+    </div>
+    <div class="p-3 border-t border-gray-200 mt-2 space-y-2 bg-indigo-50 rounded-lg">
+        <div class="flex items-center">
+            <input id="confidence-scoring-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="confidence-scoring-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                เปิดใช้งานระบบคะแนนตามความมั่นใจ
+            </label>
+        </div>
+        <div id="confidence-mode-container" class="hidden pl-6">
+            <label for="confidence-mode-select" class="block text-xs font-medium text-gray-600">รูปแบบ:</label>
+            <select id="confidence-mode-select" class="mt-1 w-full p-1 text-sm border border-gray-300 rounded-lg">
+                <option value="checkbox">กล่องตัวเลือก (ติ๊กหรือไม่ก็ได้)</option>
+                <option value="mandatory">บังคับเลือก (มั่นใจ/ไม่มั่นใจ)</option>
+            </select>
+        </div>
+    </div>
+    <div class="border-t pt-4 mt-2">
+        <label for="timer-mode-select" class="block text-sm font-medium text-gray-700">ตั้งค่าการจับเวลา:</label>
+        <select id="timer-mode-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            <option value="none">ไม่มีการจับเวลา</option>
+            <option value="whole_quiz">จับเวลาทั้งแบบทดสอบ (นาที)</option>
+            <option value="per_question">จับเวลาทีละข้อ (วินาที)</option>
+        </select>
+        <div id="timer-duration-container" class="mt-2 hidden">
+            <label for="timer-duration-input" id="timer-duration-label" class="block text-sm font-medium text-gray-700">ระยะเวลา:</label>
+            <input type="number" id="timer-duration-input" value="10" min="1" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+        </div>
+    </div>
+    <button id="save-settings-btn" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition-colors text-sm">
+        <i class="fas fa-save mr-2"></i>บันทึกการตั้งค่า
+    </button>
 </div>
-                                        <div class="border-t pt-4 mt-2">
-                                            <label for="timer-mode-select" class="block text-sm font-medium text-gray-700">ตั้งค่าการจับเวลา:</label>
-                                            <select id="timer-mode-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                                <option value="none">ไม่มีการจับเวลา</option>
-                                                <option value="whole_quiz">จับเวลาทั้งแบบทดสอบ (นาที)</option>
-                                                <option value="per_question">จับเวลาทีละข้อ (วินาที)</option>
-                                            </select>
-                                            <div id="timer-duration-container" class="mt-2 hidden">
-                                                <label for="timer-duration-input" id="timer-duration-label" class="block text-sm font-medium text-gray-700">ระยะเวลา:</label>
-                                                <input type="number" id="timer-duration-input" value="10" min="1" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-                                            </div>
-                                        </div>
-                                        <button id="save-settings-btn" class="w-full bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition-colors text-sm">
-                                            <i class="fas fa-save mr-2"></i>บันทึกการตั้งค่า
-                                        </button>
-                                    </div>
                                 </div>
 								
 								       <div id="project-visibility-settings">
@@ -621,7 +632,7 @@ body.dimmed #dim-overlay {
     <div class="flex items-center p-3 bg-indigo-50 rounded-lg">
         <input id="separate-by-content-checkbox" type="checkbox" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
         <label for="separate-by-content-checkbox" class="ml-3 block font-medium text-gray-800">
-            ✅ สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
+            สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
         </label>
     </div>
 
@@ -660,20 +671,6 @@ body.dimmed #dim-overlay {
         <i class="fas fa-cogs mr-2"></i>สร้างแบบทดสอบคู่ขนาน
     </button>
 </div>
-
-                                     <div class="flex items-center mb-4">
-    <input id="force-math-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-    <label for="force-math-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
-        สร้างแบบทดสอบตามหัวข้อปกติ (ไม่บังคับคณิตศาสตร์)
-    </label>
-</div>
-                                    <!-- NEW: Checkbox for including images -->
-                                    <div class="flex items-center my-4">
-                                        <input id="include-images-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-                                        <label for="include-images-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
-                                            สร้างคำถามพร้อมรูปภาพ (สำหรับเรขาคณิต, กราฟ, ฯลฯ)
-                                        </label>
-                                    </div>
                                     <!-- Topic Input -->
                                     <div id="topic-input-area" class="space-y-4">
                                         <input type="text" id="topic-input" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="เช่น ทฤษฎีบทพีทาโกรัส">
@@ -688,6 +685,21 @@ body.dimmed #dim-overlay {
                                     <div id="file-input-area" class="hidden space-y-4">
     <label for="file-upload-input" class="block text-sm font-medium text-gray-700">เลือกไฟล์ PDF หรือ Word (.docx):</label>
     <input type="file" id="file-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf,.docx">
+	
+	<div class="flex items-center my-3 p-3 bg-indigo-50 rounded-lg">
+    <input id="separate-by-content-from-file-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+    <label for="separate-by-content-from-file-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
+        สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
+        <p class="text-xs text-gray-500">AI จะวิเคราะห์หัวข้อจากไฟล์ให้คุณเลือกสร้างแบบทดสอบเฉพาะเรื่อง</p>
+    </label>
+</div>
+
+<div id="file-topics-list-container" class="hidden p-3 mt-4 border rounded-md bg-white">
+    <p class="text-sm font-semibold mb-2 text-gray-700">กรุณาเลือกหัวข้อที่ต้องการสร้างแบบทดสอบ:</p>
+    <div id="file-topics-list" class="space-y-2">
+        <p class="text-gray-400">กรุณาอัปโหลดไฟล์เพื่อเริ่มการวิเคราะห์...</p>
+    </div>
+</div>
 	
 	    <div class="flex items-center my-3 p-3 bg-indigo-50 rounded-lg">
         <input id="original-mode-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
