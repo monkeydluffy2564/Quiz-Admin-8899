@@ -19,6 +19,8 @@
     <!-- Libraries for File Reading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
     <!-- MathJax for rendering math formulas -->
     <script>
@@ -33,10 +35,40 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
+	
+	/* ในไฟล์ A.html ภายใน <style> */
+.ai-content h1, .ai-content h2, .ai-content h3, .ai-content h4 { font-weight: 700; color: #1e3a8a; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+.ai-content h1 { font-size: 1.8rem; } .ai-content h2 { font-size: 1.5rem; } .ai-content h3 { font-size: 1.25rem; }
+.ai-content p { margin-bottom: 1rem; line-height: 1.7; }
+.ai-content ul, .ai-content ol { margin-left: 1.5rem; margin-bottom: 1rem; list-style-position: outside; }
+.ai-content li { margin-bottom: 0.5rem; }
+.ai-content blockquote { background-color: #eff6ff; border-left: 4px solid #3b82f6; padding: 0.75rem 1rem; margin: 1rem 0; border-radius: 0.25rem; color: #1e40af; }
+.ai-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+.ai-content th, .ai-content td { border: 1px solid #e2e8f0; padding: 0.75rem 1rem; text-align: left; }
+.ai-content th { background-color: #fefce8; font-weight: 600; }
+.ai-content code { background-color: #f1f5f9; color: #475569; padding: 0.2em 0.4em; border-radius: 3px; }
+.ai-content svg { max-width: 100%; height: auto; margin: 1rem auto; display: block; }
+.section-header { display: flex; align-items: center; font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; color: #1e3a8a; border-bottom: 2px solid #dbeafe; padding-bottom: 0.5rem; }
+.section-header i { margin-right: 0.75rem; color: #3b82f6; }
+	
         body {
             font-family: 'Sarabun', sans-serif;
         }
 		#message-modal { z-index: 60; } /* <-- วางตรงนี้ได้เลย */
+		
+		.correct {
+    background-color: #dcfce7 !important;
+    border-color: #22c55e !important;
+    color: #166534;
+    font-weight: bold;
+}
+
+.incorrect {
+    background-color: #fee2e2 !important;
+    border-color: #ef4444 !important;
+    color: #991b1b;
+}
+		
         .main-tab.active {
             border-color: #4f46e5;
             color: #4f46e5;
@@ -308,6 +340,14 @@ body.dimmed #dim-overlay {
 <button id="open-quiz-bank-btn"
   class="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all duration-300 flex items-center shrink-0">
   <i class="fas fa-book mr-2"></i>คลังแบบทดสอบ
+</button>
+
+<button id="open-blueprint-projects-btn" class="bg-teal-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-teal-700 transition-all duration-300 flex items-center shrink-0">
+    <i class="fas fa-sitemap mr-2"></i>โปรเจค Blueprint
+</button>
+
+<button id="manual-create-blueprint-btn" class="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center shrink-0">
+    <i class="fas fa-plus mr-2"></i>สร้างโปรเจคเอง
 </button>
 
 <button id="update-old-quizzes-btn"
@@ -628,6 +668,12 @@ body.dimmed #dim-overlay {
     <input type="file" id="blueprint-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf">
 	
 	<div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+	
+	<button id="save-blueprint-as-project-btn" class="hidden w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 mb-4 items-center justify-center">
+    <i class="fas fa-save mr-2"></i> บันทึกหัวข้อทั้งหมดเป็น Project
+</button>
+<div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+    </div>
     
     <div class="flex items-center p-3 bg-indigo-50 rounded-lg">
         <input id="separate-by-content-checkbox" type="checkbox" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
@@ -925,6 +971,33 @@ body.dimmed #dim-overlay {
 </div>
 
                 </div>
+				
+<div id="blueprint-project-manager-view" class="hidden fade-in">
+    <button id="back-to-dashboard-from-bp-btn" class="mb-4 text-indigo-600 hover:underline">
+        <i class="fas fa-arrow-left mr-2"></i>กลับไปหน้า Dashboard
+    </button>
+
+    <div class="flex justify-between items-center mb-4">
+        <h2 id="bp-project-title" class="text-3xl font-bold text-teal-700"></h2>
+        <button id="bp-quiz-settings-btn" class="bg-orange-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-orange-600 flex items-center gap-2">
+            <i class="fas fa-cog"></i> ตั้งค่าแบบทดสอบ
+        </button>
+    </div>
+
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h3 class="font-semibold mb-2">รายการหัวข้อในโปรเจค:</h3>
+        
+        <div id="bp-topic-list-container" class="space-y-2">
+            </div>
+        
+        <div class="mt-4 pt-4 border-t">
+            <button id="bp-add-topic-btn" class="bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 text-sm">
+                <i class="fas fa-plus mr-2"></i>เพิ่มหัวข้อใหม่
+            </button>
+        </div>
+    </div>
+</div>
+				
             </div>
 
             <!-- Student View -->
@@ -1104,6 +1177,35 @@ body.dimmed #dim-overlay {
     </div>
 </div>
 
+<div id="lesson-view-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 z-50 p-4 flex items-center justify-center">
+    <div class="bg-white w-full max-w-5xl h-[95vh] rounded-lg shadow-xl flex flex-col">
+ <div class="flex justify-between items-center p-4 border-b">
+    <h3 id="lesson-view-title" class="text-2xl font-bold text-indigo-700"></h3>
+    <div class="flex items-center gap-4">
+        <button id="fix-lesson-latex-btn" class="bg-yellow-500 text-white py-2 px-4 rounded-lg font-semibold hover:bg-yellow-600 transition-colors text-sm flex items-center gap-2">
+            <i class="fas fa-magic-wand-sparkles"></i> แก้ไขสูตร
+        </button>
+        <button id="export-lesson-to-pdf-btn" class="bg-red-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-red-700 transition-colors text-sm flex items-center gap-2">
+            <i class="fas fa-file-pdf"></i> บันทึกเป็น PDF
+        </button>
+        <button id="close-lesson-view-btn" class="text-gray-500 hover:text-red-600 text-3xl">&times;</button>
+    </div>
+</div>
+        <div id="lesson-view-content" class="flex-grow overflow-y-auto p-6 bg-gray-50">
+            <div id="lesson-loader" class="hidden text-center py-16">
+                <div class="loader mx-auto"></div>
+                <p id="lesson-loader-text" class="mt-4 text-gray-600">AI กำลังสร้างบทเรียน... กรุณารอสักครู่</p>
+            </div>
+            <div id="lesson-sections-container" class="hidden space-y-6 ai-content">
+                <div class="p-6 bg-white rounded-lg shadow-sm border"><h3 class="section-header"><i class="fas fa-bullseye"></i>POINT ประเด็นดี</h3><div id="pointContent"></div></div>
+                <div class="p-6 bg-white rounded-lg shadow-sm border"><h3 class="section-header"><i class="fas fa-sd-card"></i>MEMORY มีสูตรจำ</h3><div id="memoryContent"></div></div>
+                <div class="p-6 bg-white rounded-lg shadow-sm border"><h3 class="section-header"><i class="fas fa-pencil-alt"></i>APPLICATION นำไปใช้</h3><div id="applicationContent"></div></div>
+                <div class="p-6 bg-white rounded-lg shadow-sm border"><h3 class="section-header"><i class="fas fa-file-alt"></i>ONE-PAGE SUMMARY ไว้หน้าเดียว</h3><div id="summaryContent"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
     <div id="create-project-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
             <h3 class="text-xl font-bold mb-4">สร้างโปรเจคใหม่</h3>
@@ -1185,6 +1287,61 @@ body.dimmed #dim-overlay {
             </div>
         </div>
     </div>
+	
+	<div id="blueprint-projects-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold text-teal-700">โปรเจค Blueprint ที่บันทึกไว้</h3>
+        <button id="cancel-blueprint-projects-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+    </div>
+    <div id="blueprint-project-list" class="max-h-96 overflow-y-auto border rounded-md">
+        <p class="p-4 text-center text-gray-500">กำลังโหลด...</p>
+    </div>
+  </div>
+</div>
+
+<div id="manual-blueprint-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full flex flex-col">
+    <h3 class="text-xl font-bold text-blue-700 mb-4">สร้างโปรเจค Blueprint ด้วยตนเอง</h3>
+
+    <div class="space-y-4">
+        <div>
+            <label for="manual-bp-project-name" class="block text-sm font-medium text-gray-700">ชื่อโปรเจค:</label>
+            <input type="text" id="manual-bp-project-name" class="mt-1 w-full p-2 border border-gray-300 rounded-lg" placeholder="เช่น O-NET ป.6 (สร้างเอง)">
+        </div>
+        <div>
+            <label for="manual-bp-grade-level" class="block text-sm font-medium text-gray-700">ระดับชั้น:</label>
+            <input type="text" id="manual-bp-grade-level" class="mt-1 w-full p-2 border border-gray-300 rounded-lg" placeholder="เช่น ประถมศึกษาปีที่ 6">
+        </div>
+        <div>
+            <label for="manual-bp-content" class="block text-sm font-medium text-gray-700">
+                วางเนื้อหา (ใช้การย่อหน้า):
+            </label>
+            <textarea id="manual-bp-content" rows="10" class="mt-1 w-full p-2 border border-gray-300 rounded-lg font-mono text-sm" placeholder="สาระที่ 1: จำนวนและพีชคณิต
+    การบวก ลบ คูณ หารจำนวนนับ
+        การแก้โจทย์ปัญหาและการสร้างโจทย์ปัญหา
+สาระที่ 2: การวัดและเรขาคณิต
+    เวลา
+        การเปรียบเทียบระยะเวลา"></textarea>
+            <p class="text-xs text-gray-500 mt-1">
+                <b>รูปแบบ:</b><br>
+                บรรทัดไม่ย่อหน้า = สาระ (Sara)<br>
+                ย่อหน้า 1 ระดับ = หัวข้อหลัก (Main Topic)<br>
+                ย่อหน้า 2 ระดับ = หัวข้อย่อย (Sub Topic)
+            </p>
+        </div>
+    </div>
+
+    <div class="flex justify-end gap-3 mt-6">
+      <button id="cancel-manual-bp-btn" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300">
+        ยกเลิก
+      </button>
+      <button id="confirm-manual-bp-btn" class="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700">
+        สร้างและบันทึกโปรเจค
+      </button>
+    </div>
+  </div>
+</div>
 	
 	<div id="global-live-game-modal"
      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
@@ -1321,6 +1478,80 @@ body.dimmed #dim-overlay {
             </div>
         </div>
     </div>
+	
+	<div id="blueprint-settings-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+    <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full flex flex-col">
+        <h3 class="text-xl font-bold mb-4">ตั้งค่าสำหรับสร้างแบบทดสอบ (เฉพาะหน้านี้)</h3>
+        
+        <div class="space-y-4 max-h-[70vh] overflow-y-auto pr-4">
+            
+            <div>
+                <label for="bp-modal-quiz-type-select" class="block text-sm font-medium text-gray-700">ประเภทคำถาม:</label>
+                <select id="bp-modal-quiz-type-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <optgroup label="ทั่วไป">
+                        <option value="multiple_choice">แบบเลือกตอบ (ก, ข, ค, ง)</option>
+                        <option value="matching">แบบจับคู่ (แยกข้อ)</option>
+                        <option value="true_false">แบบถูก/ผิด</option>
+                    </optgroup>
+                    <optgroup label="แบบเติมคำ">
+                        <option value="fill_in_with_choices">เติมคำ (มีตัวเลือกให้)</option>
+                        <option value="fill_in_no_choices">เติมคำ (พิมพ์ตอบเอง)</option>
+                        <option value="mixed">แบบผสม (เลือกตอบและเติมคำ)</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <div>
+                <label for="bp-modal-difficulty-level-select" class="block text-sm font-medium text-gray-700">ระดับชั้น/ความยาก:</label>
+                <select id="bp-modal-difficulty-level-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                     </select>
+            </div>
+
+            <div>
+                <label for="bp-modal-question-complexity-select" class="block text-sm font-medium text-gray-700">ระดับความซับซ้อนของคำถาม:</label>
+                <select id="bp-modal-question-complexity-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    </select>
+            </div>
+            
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="bp-modal-num-questions" class="block text-sm font-medium text-gray-700">จำนวนข้อ:</label>
+                    <input type="number" id="bp-modal-num-questions" value="5" min="1" max="20" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div>
+                    <label for="bp-modal-passing-score-input" class="block text-sm font-medium text-gray-700">คะแนนที่ผ่าน:</label>
+                    <input type="number" id="bp-modal-passing-score-input" value="3" min="0" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+            </div>
+            
+            <div id="bp-modal-num-choices-container">
+                <label for="bp-modal-num-choices" class="block text-sm font-medium text-gray-700">จำนวนตัวเลือก:</label>
+                <input type="number" id="bp-modal-num-choices" value="4" min="2" max="6" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+            </div>
+
+            <div>
+                <label for="bp-modal-shuffle-setting-select" class="block text-sm font-medium text-gray-700">การสลับข้อ/ตัวเลือก:</label>
+                <select id="bp-modal-shuffle-setting-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                    <option value="none">ไม่สลับ</option>
+                    <option value="questions_only">สลับเฉพาะข้อ</option>
+                    <option value="choices_only">สลับเฉพาะตัวเลือก</option>
+                    <option value="both">สลับทั้งข้อและตัวเลือก</option>
+                </select>
+            </div>
+            
+            <div class="flex items-center mt-2">
+                <input id="bp-modal-include-images-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                <label for="bp-modal-include-images-checkbox" class="ml-2 block text-sm font-medium text-gray-900">สร้างคำถามพร้อมรูปภาพ</label>
+            </div>
+
+        </div>
+        
+        <div class="flex justify-end gap-3 mt-6">
+            <button id="cancel-bp-settings-btn" class="bg-gray-300 text-gray-800 py-2 px-4 rounded-lg hover:bg-gray-400">ยกเลิก</button>
+            <button id="save-bp-settings-btn" class="bg-orange-600 text-white py-2 px-4 rounded-lg hover:bg-orange-700">บันทึกการตั้งค่า</button>
+        </div>
+    </div>
+</div>
     
     <div id="quiz-status-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="bg-white p-8 rounded-lg shadow-xl max-w-md w-full">
