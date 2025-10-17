@@ -664,47 +664,51 @@ body.dimmed #dim-overlay {
                                     </div>
 
 <div id="blueprint-input-area" class="hidden space-y-4">
-    <label for="blueprint-upload-input" class="block text-sm font-medium text-gray-700">เลือกไฟล์ Test Blueprint (.pdf):</label>
-    <input type="file" id="blueprint-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf">
-	
-	<div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
-	
-	<button id="save-blueprint-as-project-btn" class="hidden w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 mb-4 items-center justify-center">
-    <i class="fas fa-save mr-2"></i> บันทึกหัวข้อทั้งหมดเป็น Project
-</button>
-<div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+
+    <label class="block text-sm font-medium text-gray-700">ปุ่มลัด (Blueprint Shortcuts):</label>
+    <div id="blueprint-shortcut-container" class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <p id="shortcuts-loading-msg" class="col-span-full text-center text-gray-500 py-4">กำลังโหลด...</p>
     </div>
-    
-    <div class="flex items-center p-3 bg-indigo-50 rounded-lg">
-        <input id="separate-by-content-checkbox" type="checkbox" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-        <label for="separate-by-content-checkbox" class="ml-3 block font-medium text-gray-800">
-            สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
+    <div class="flex justify-between items-center mt-2">
+        <button id="add-shortcut-btn" class="text-sm text-blue-600 font-semibold hover:underline">
+            <i class="fas fa-plus-circle mr-1"></i>เพิ่มทางลัดใหม่
+        </button>
+        <label for="blueprint-upload-input" class="text-sm text-gray-600 font-semibold hover:underline cursor-pointer">
+            <i class="fas fa-upload mr-1"></i>หรือ อัปโหลดไฟล์ด้วยตนเอง
         </label>
+        <input type="file" id="blueprint-upload-input" class="hidden" accept=".pdf">
+    </div>
+    <div id="blueprint-options-container" class="hidden mt-4 pt-4 border-t border-gray-200 space-y-3">
+        <button id="save-blueprint-as-project-btn" class="hidden w-full bg-green-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-green-700 mb-4 items-center justify-center">
+            <i class="fas fa-save mr-2"></i> บันทึกหัวข้อทั้งหมดเป็น Project
+        </button>
+        <div class="flex items-center p-3 bg-indigo-50 rounded-lg">
+            <input id="separate-by-content-checkbox" type="checkbox" class="h-5 w-5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+            <label for="separate-by-content-checkbox" class="ml-3 block font-medium text-gray-800">
+                สร้างแบบทดสอบแยกตามเนื้อหา (สำหรับติวเฉพาะเรื่อง)
+            </label>
+        </div>
+        <div id="blueprint-topics-list-container" class="hidden p-3 border rounded-md bg-white">
+            <p class="text-sm font-semibold mb-2 text-gray-700">กรุณาเลือกหัวข้อที่ต้องการสร้างแบบทดสอบ:</p>
+            <div id="blueprint-topics-list" class="space-y-2">
+                <p class="text-gray-400">กำลังวิเคราะห์หัวข้อ...</p>
+            </div>
+            <p class="text-xs text-gray-500 mt-3">*จำนวนข้อและรูปแบบจะอิงตามการตั้งค่าปัจจุบัน ไม่ใช่จาก Blueprint</p>
+        </div>
     </div>
 
-    <div id="blueprint-topics-list-container" class="hidden p-3 border rounded-md bg-white">
-        <p class="text-sm font-semibold mb-2 text-gray-700">กรุณาเลือกหัวข้อที่ต้องการสร้างแบบทดสอบ:</p>
-        <div id="blueprint-topics-list" class="space-y-2">
-            <p class="text-gray-400">กำลังวิเคราะห์หัวข้อ...</p>
-        </div>
-        <p class="text-xs text-gray-500 mt-3">*จำนวนข้อและรูปแบบจะอิงตามการตั้งค่าปัจจุบัน ไม่ใช่จาก Blueprint</p>
+    <div class="mt-4 pt-4 border-t">
+        <label for="reference-pdf-upload" class="block text-sm font-medium text-gray-700">
+            (ตัวเลือกเสริม) แนบไฟล์ข้อสอบตัวอย่างเพื่ออ้างอิงความยาก (.pdf, .txt):
+        </label>
+        <input type="file" id="reference-pdf-upload" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" accept=".pdf,.txt">
+        <p class="text-xs text-gray-500 mt-1">
+            AI จะใช้สไตล์และระดับความยากจากไฟล์นี้เป็นแนวทางในการสร้างข้อสอบชุดใหม่ แต่จะไม่คัดลอกโจทย์มาโดยตรง
+        </p>
     </div>
-</div>
-	
-	<div class="mt-4 pt-4 border-t">
-    <label for="reference-pdf-upload" class="block text-sm font-medium text-gray-700">
-        (แนะนำ) แนบไฟล์ข้อสอบตัวอย่างเพื่ออ้างอิงความยาก (.pdf, .txt):
-    </label>
-    <input type="file" id="reference-pdf-upload" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-50 file:text-gray-700 hover:file:bg-gray-100" accept=".pdf,.txt">
-    <p class="text-xs text-gray-500 mt-1">
-        AI จะใช้สไตล์และระดับความยากจากไฟล์นี้เป็นแนวทางในการสร้างข้อสอบชุดใหม่ แต่จะไม่คัดลอกโจทย์มาโดยตรง
-    </p>
-</div>
-	
-    <p class="text-xs text-gray-500">AI จะวิเคราะห์โครงสร้าง, จำนวนข้อ, และหัวข้อจากไฟล์นี้เพื่อสร้างแบบทดสอบที่แม่นยำตาม Blueprint</p>
 
     <button id="generate-from-blueprint-btn" class="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 flex items-center justify-center disabled:bg-gray-400 disabled:cursor-not-allowed" disabled>
-        <i class="fas fa-cogs mr-2"></i>สร้างแบบทดสอบตาม Blueprint
+        <i class="fas fa-cogs mr-2"></i>สร้างแบบทดสอบตาม Blueprint (จากไฟล์ที่อัปโหลด)
     </button>
 </div>
 
@@ -1706,6 +1710,42 @@ body.dimmed #dim-overlay {
             <button id="confirm-game-start-btn" class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">ยืนยันและเริ่ม</button>
         </div>
     </div>
+</div>
+
+<div id="shortcut-editor-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
+    <div class="bg-white p-6 rounded-lg shadow-xl max-w-lg w-full">
+        <h3 id="shortcut-modal-title" class="text-xl font-bold mb-4">แก้ไขปุ่มลัด</h3>
+        <div class="space-y-4">
+            <div>
+                <label for="shortcut-name-input" class="block text-sm font-medium text-gray-700">ชื่อปุ่มลัด:</label>
+                <input type="text" id="shortcut-name-input" class="mt-1 w-full p-2 border border-gray-300 rounded-lg" placeholder="เช่น Blueprint O-NET ป.6">
+            </div>
+            <div>
+                <label for="shortcut-blueprint-url-input" class="block text-sm font-medium text-gray-700">ลิงก์ Test Blueprint (จาก Google Drive):</label>
+                <input type="url" id="shortcut-blueprint-url-input" class="mt-1 w-full p-2 border border-gray-300 rounded-lg" placeholder="วางลิงก์ที่แชร์แบบ 'ทุกคนที่มีลิงก์' ที่นี่">
+            </div>
+            <div>
+                <label for="shortcut-reference-url-input" class="block text-sm font-medium text-gray-700">ลิงก์ไฟล์อ้างอิงความยาก (ตัวเลือกเสริม):</label>
+                <input type="url" id="shortcut-reference-url-input" class="mt-1 w-full p-2 border border-gray-300 rounded-lg" placeholder="วางลิงก์ไฟล์ PDF หรือ TXT">
+            </div>
+        </div>
+        <div class="flex justify-end gap-3 mt-6">
+            <input type="hidden" id="shortcut-id-input">
+            <button id="cancel-shortcut-edit-btn" class="bg-gray-200 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-300">ยกเลิก</button>
+            <button id="save-shortcut-btn" class="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700">บันทึก</button>
+        </div>
+    </div>
+</div>
+
+<div id="additional-shortcuts-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
+    <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-bold text-gray-700">ปุ่มลัดทั้งหมด</h3>
+        <button id="close-additional-shortcuts-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
+    </div>
+    <div id="additional-shortcuts-list" class="max-h-96 overflow-y-auto border rounded-md">
+        </div>
+  </div>
 </div>
 
     <!-- Presentation Mode Container -->
