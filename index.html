@@ -811,14 +811,23 @@ body.dimmed #dim-overlay {
 </div>
 
 <div id="additional-file-shortcuts-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
+<div class="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full flex flex-col h-[80vh]">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold text-gray-700">ปุ่มลัดจากไฟล์ทั้งหมด</h3>
         <button id="close-additional-file-shortcuts-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
-    <div id="additional-file-shortcuts-list" class="max-h-96 overflow-y-auto border rounded-md">
+
+    <div class="flex items-center border-b border-gray-200 mb-3 flex-shrink-0">
+        <nav id="file-shortcut-tabs-nav" class="flex-grow -mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
+            </nav>
+        <button id="add-file-shortcut-tab-btn" class="ml-4 text-blue-600 hover:text-blue-800 font-semibold text-sm whitespace-nowrap py-3" title="เพิ่มแท็บใหม่">
+            <i class="fas fa-plus-circle"></i> เพิ่มแท็บ
+        </button>
+    </div>
+
+    <div id="additional-file-shortcuts-list" class="flex-grow overflow-y-auto border rounded-md">
         </div>
-  </div>
+</div>
 </div>
 
 <div id="parallel-shortcut-editor-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 p-4">
@@ -843,14 +852,23 @@ body.dimmed #dim-overlay {
 </div>
 
 <div id="additional-parallel-shortcuts-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
+<div class="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full flex flex-col h-[80vh]">
     <div class="flex justify-between items-center mb-4">
         <h3 class="text-xl font-bold text-gray-700">ปุ่มลัดข้อสอบต้นฉบับทั้งหมด</h3>
         <button id="close-additional-parallel-shortcuts-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
-    <div id="additional-parallel-shortcuts-list" class="max-h-96 overflow-y-auto border rounded-md">
+
+    <div class="flex items-center border-b border-gray-200 mb-3 flex-shrink-0">
+        <nav id="parallel-shortcut-tabs-nav" class="flex-grow -mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
+            </nav>
+        <button id="add-parallel-shortcut-tab-btn" class="ml-4 text-blue-600 hover:text-blue-800 font-semibold text-sm whitespace-nowrap py-3" title="เพิ่มแท็บใหม่">
+            <i class="fas fa-plus-circle"></i> เพิ่มแท็บ
+        </button>
+    </div>
+
+    <div id="additional-parallel-shortcuts-list" class="flex-grow overflow-y-auto border rounded-md">
         </div>
-  </div>
+</div>
 </div>
 
                                     <!-- Link Input -->
@@ -1825,14 +1843,22 @@ body.dimmed #dim-overlay {
 </div>
 
 <div id="additional-shortcuts-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-  <div class="bg-white p-6 rounded-lg shadow-xl max-w-xl w-full flex flex-col">
+<div class="bg-white p-6 rounded-lg shadow-xl max-w-2xl w-full flex flex-col h-[80vh]">
     <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold text-gray-700">ปุ่มลัดทั้งหมด</h3>
+        <h3 id="shortcut-modal-main-title" class="text-xl font-bold text-gray-700">ปุ่มลัดทั้งหมด</h3>
         <button id="close-additional-shortcuts-btn" class="text-gray-500 hover:text-red-600 text-2xl">&times;</button>
     </div>
-    <div id="additional-shortcuts-list" class="max-h-96 overflow-y-auto border rounded-md">
+
+    <div class="flex items-center border-b border-gray-200 mb-3 flex-shrink-0">
+        <nav id="shortcut-tabs-nav" class="flex-grow -mb-px flex space-x-4 overflow-x-auto" aria-label="Tabs">
+            </nav>
+        <button id="add-shortcut-tab-btn" class="ml-4 text-blue-600 hover:text-blue-800 font-semibold text-sm whitespace-nowrap py-3" title="เพิ่มแท็บใหม่">
+            <i class="fas fa-plus-circle"></i> เพิ่มแท็บ
+        </button>
+    </div>
+    <div id="additional-shortcuts-list" class="flex-grow overflow-y-auto border rounded-md">
         </div>
-  </div>
+</div>
 </div>
 
     <!-- Presentation Mode Container -->
