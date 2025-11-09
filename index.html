@@ -1785,16 +1785,15 @@ body.dimmed #dim-overlay {
                 <div id="quiz-editor-questions-container" class="space-y-6">
                     </div>
             </div>
-           <div class="mt-6 pt-4 border-t flex justify-end gap-3">
-    <button id="auto-fix-latex-btn" class="bg-yellow-500 text-white py-2 px-6 rounded-lg hover:bg-yellow-600 flex items-center gap-2">
+          <div class="mt-6 pt-4 border-t flex flex-col sm:flex-row sm:justify-end gap-3">
+    <button id="auto-fix-latex-btn" class="bg-yellow-500 text-white py-2 px-6 rounded-lg hover:bg-yellow-600 flex items-center justify-center gap-2 w-full sm:w-auto">
         <i class="fas fa-magic-wand-sparkles"></i> แก้ไขสูตรทั้งหมด
     </button>
-
-    <button id="verify-answers-editor-btn" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 flex items-center gap-2">
+    <button id="verify-answers-editor-btn" class="bg-blue-600 text-white py-2 px-6 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 w-full sm:w-auto">
         <i class="fas fa-check-double"></i> ตรวจทานเฉลย (AI)
     </button>
-    <button id="cancel-quiz-edits-btn-footer" class="bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300">ยกเลิก</button>
-    <button id="save-quiz-edits-btn" class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 flex items-center gap-2">
+    <button id="cancel-quiz-edits-btn-footer" class="bg-gray-200 text-gray-800 py-2 px-6 rounded-lg hover:bg-gray-300 w-full sm:w-auto justify-center">ยกเลิก</button>
+    <button id="save-quiz-edits-btn" class="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 flex items-center justify-center gap-2 w-full sm:w-auto">
         <i class="fas fa-save"></i> บันทึกการแก้ไข
     </button>
 </div>
@@ -1814,6 +1813,26 @@ body.dimmed #dim-overlay {
             </label>
             <p class="text-xs text-gray-500 mt-1 pl-8">หากเลือกตัวเลือกนี้ คะแนนจากเกมจะถูกนำไปรวมในหน้าผลลัพธ์และตารางผู้นำ</p>
         </div>
+		
+		<div id="sync-variant-selector" class="my-4 text-left hidden">
+        <label class="block text-sm font-medium text-gray-700 mb-2">รูปแบบการเฉลย (Sync Mode):</label>
+        <div class="space-y-2">
+            <label class="flex items-center p-2 border rounded-lg cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400">
+                <input type="radio" name="syncVariant" value="classic" class="mr-3" checked>
+                <div>
+                    <p class="font-semibold">เฉลยทีละข้อ (Classic)</p>
+                    <p class="text-xs text-gray-500">หลังจบแต่ละข้อ จะแสดงผลลัพธ์และเฉลยทันที</p>
+                </div>
+            </label>
+            <label class="flex items-center p-2 border rounded-lg cursor-pointer has-[:checked]:bg-blue-50 has-[:checked]:border-blue-400">
+                <input type="radio" name="syncVariant" value="reveal_at_end" class="mr-3">
+                <div>
+                    <p class="font-semibold">สรุปผลตอนท้าย (Reveal at End)</p>
+                    <p class="text-xs text-gray-500">แสดงกราฟสรุปหลังจบข้อ แล้วไปต่อทันที (เฉลยทุกข้อตอนท้ายเกม)</p>
+                </div>
+            </label>
+        </div>
+    </div>
 
         <input type="hidden" id="game-start-quiz-id">
         <input type="hidden" id="game-start-mode">
