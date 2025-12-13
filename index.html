@@ -1570,7 +1570,7 @@ body.dimmed #dim-overlay {
 </div>
 
     <div id="quiz-settings-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full">
+        <div class="bg-white p-8 rounded-lg shadow-xl max-w-lg w-full" style="max-height: 90vh; overflow-y: auto;">
             <h3 class="text-xl font-bold mb-4">ตั้งค่าแบบทดสอบ</h3>
             <div class="space-y-4">
                 <div>
@@ -1582,48 +1582,48 @@ body.dimmed #dim-overlay {
                         <option value="both">สลับทั้งข้อและตัวเลือก</option>
                     </select>
                 </div>
-                 <div>
-    <label for="modal-results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
-<select id="modal-results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
-    <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
-    <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
-    <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
-    <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
+                <div>
+                    <label for="modal-results-display-select" class="block text-sm font-medium text-gray-700">การแสดงผลให้นักเรียน:</label>
+                    <select id="modal-results-display-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                        <option value="show_results_and_answers">ทราบคะแนนและเฉลยทันที</option>
+                        <option value="show_results_only">ทราบเฉพาะคะแนน (ไม่เห็นเฉลย)</option>
+                        <option value="show_pass_fail_only">ทราบผลผ่าน/ไม่ผ่านเท่านั้น</option>
+                        <option value="manual_release">รอผู้ดูแลแจ้งผล</option>
 
-    <optgroup label="รูปแบบเพิ่มเติม (ไอเดียใหม่)">
-        <option value="half_mark_status">แสดงผลแบบต่ำกว่าครึ่ง/เกินครึ่ง</option>
-        <option value="perfect_score_status">แสดงผลแบบคะแนนเต็ม/ไม่เต็ม</option>
-    </optgroup>
-    </select>
-</div>
-                 <div class="flex items-center mt-2">
-    <input id="modal-adaptive-quiz-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-    <label for="modal-adaptive-quiz-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-        เปิดใช้งานแบบทดสอบปรับพื้นฐาน
-    </label>
-</div>
+                        <optgroup label="รูปแบบเพิ่มเติม (ไอเดียใหม่)">
+                            <option value="half_mark_status">แสดงผลแบบต่ำกว่าครึ่ง/เกินครึ่ง</option>
+                            <option value="perfect_score_status">แสดงผลแบบคะแนนเต็ม/ไม่เต็ม</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="flex items-center mt-2">
+                    <input id="modal-adaptive-quiz-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                    <label for="modal-adaptive-quiz-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                        เปิดใช้งานแบบทดสอบปรับพื้นฐาน
+                    </label>
+                </div>
 
-<div class="flex items-center mt-2">
-    <input id="modal-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-    <label for="modal-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-        เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
-    </label>
-</div>
-<div class="p-3 border rounded-lg bg-indigo-50 space-y-2">
-    <div class="flex items-center">
-        <input id="modal-confidence-scoring-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
-        <label for="modal-confidence-scoring-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
-            เปิดใช้งานระบบคะแนนตามความมั่นใจ
-        </label>
-    </div>
-    <div id="modal-confidence-mode-container" class="hidden pl-6">
-        <label for="modal-confidence-mode-select" class="block text-xs font-medium text-gray-600">รูปแบบ:</label>
-        <select id="modal-confidence-mode-select" class="mt-1 w-full p-1 text-sm border border-gray-300 rounded-lg">
-            <option value="checkbox">กล่องตัวเลือก (ติ๊กหรือไม่ก็ได้)</option>
-            <option value="mandatory">บังคับเลือก (มั่นใจ/ไม่มั่นใจ)</option>
-        </select>
-    </div>
-</div>
+                <div class="flex items-center mt-2">
+                    <input id="modal-loop-until-pass-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                    <label for="modal-loop-until-pass-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                        เปิดใช้งานโหมดสอบวนลูป (สอบจนกว่าจะผ่าน)
+                    </label>
+                </div>
+                <div class="p-3 border rounded-lg bg-indigo-50 space-y-2">
+                    <div class="flex items-center">
+                        <input id="modal-confidence-scoring-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
+                        <label for="modal-confidence-scoring-checkbox" class="ml-2 block text-sm font-medium text-gray-900">
+                            เปิดใช้งานระบบคะแนนตามความมั่นใจ
+                        </label>
+                    </div>
+                    <div id="modal-confidence-mode-container" class="hidden pl-6">
+                        <label for="modal-confidence-mode-select" class="block text-xs font-medium text-gray-600">รูปแบบ:</label>
+                        <select id="modal-confidence-mode-select" class="mt-1 w-full p-1 text-sm border border-gray-300 rounded-lg">
+                            <option value="checkbox">กล่องตัวเลือก (ติ๊กหรือไม่ก็ได้)</option>
+                            <option value="mandatory">บังคับเลือก (มั่นใจ/ไม่มั่นใจ)</option>
+                        </select>
+                    </div>
+                </div>
                 <div class="border-t pt-4">
                     <label for="modal-timer-mode-select" class="block text-sm font-medium text-gray-700">โหมดการจับเวลา:</label>
                     <select id="modal-timer-mode-select" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
@@ -1636,10 +1636,29 @@ body.dimmed #dim-overlay {
                     <label for="modal-timer-duration-input" id="modal-timer-duration-label" class="block text-sm font-medium text-gray-700">ระยะเวลา:</label>
                     <input type="number" id="modal-timer-duration-input" value="10" min="1" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
                 </div>
-                <!-- NEW: Passing Score in Modal -->
                 <div class="border-t pt-4">
                     <label for="modal-passing-score-input" class="block text-sm font-medium text-gray-700">คะแนนที่ผ่าน:</label>
                     <input type="number" id="modal-passing-score-input" value="5" min="0" class="mt-1 w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+                <div class="border-t pt-4 mt-2">
+                    <p class="block text-sm font-medium text-gray-700 mb-2">
+                        <i class="fas fa-balance-scale mr-1"></i> กำหนดคะแนนตามประเภท (ค่าเริ่มต้น 1):
+                    </p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">ตัวเลือก / จับคู่</label>
+                            <input type="number" id="modal-score-mcq" step="0.001" value="1" class="w-full p-2 border border-gray-300 rounded text-center font-bold text-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">เติมคำ (พิมพ์ตอบ)</label>
+                            <input type="number" id="modal-score-sa" step="0.001" value="1" class="w-full p-2 border border-gray-300 rounded text-center font-bold text-purple-600">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">ถูก / ผิด</label>
+                            <input type="number" id="modal-score-tf" step="0.001" value="1" class="w-full p-2 border border-gray-300 rounded text-center font-bold text-green-600">
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">*รองรับทศนิยม (เช่น 6.50, 7.125)</p>
                 </div>
             </div>
             <div class="flex justify-end gap-3 mt-6">
@@ -1891,6 +1910,19 @@ body.dimmed #dim-overlay {
         </div>
     </label>
 </div>
+
+<div id="onet-mode-container" class="my-4 pt-4 border-t border-gray-200 text-left hidden">
+                <label class="flex items-center cursor-pointer bg-blue-50 p-3 rounded-lg border border-blue-200">
+                    <input id="onet-mode-checkbox" type="checkbox" class="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
+                    <div class="ml-3">
+                        <span class="text-blue-800 font-bold">เปิดโหมดสนามสอบจริง (O-NET Mode)</span>
+                        <p class="text-xs text-blue-600 mt-1">
+                            <i class="fas fa-info-circle"></i> ใช้คะแนนตามจริง (เช่น 6.5, 7.125) และ <u>ปิดระบบเกมทั้งหมด</u> (เดิมพัน, ตลาดมืด, ความมั่นใจ)
+                        </p>
+                    </div>
+                </label>
+            </div>
+
             </div>
 			
 			<div id="anon-settings-container" class="my-4 pl-8 text-left hidden">
