@@ -782,6 +782,14 @@ body.dimmed #dim-overlay {
     <label for="file-upload-input" class="block text-sm font-medium text-gray-700">เลือกไฟล์ PDF, Word (.docx), หรือ Text (.txt):</label>
     <input type="file" id="file-upload-input" class="w-full p-2 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100" accept=".pdf,.docx,.txt">
 	
+	<div id="pdf-page-selector" class="hidden mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+    <label class="block text-sm font-medium text-blue-800 mb-1">
+        <i class="fas fa-print mr-1"></i> เลือกหน้า PDF ที่ต้องการ (ไม่ระบุ = ทั้งหมด):
+    </label>
+    <input type="text" id="pdf-page-range" class="w-full p-2 border border-blue-300 rounded text-sm" placeholder="เช่น 1, 3-5, 8 (ว่างไว้เพื่อใช้ทุกหน้า)">
+    <p class="text-xs text-blue-600 mt-1">*ระบบจะดึงเฉพาะหน้าที่ระบุส่งให้ AI วิเคราะห์</p>
+</div>
+	
 	<div class="flex items-center my-3 p-3 bg-indigo-50 rounded-lg">
     <input id="separate-by-content-from-file-checkbox" type="checkbox" class="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500">
     <label for="separate-by-content-from-file-checkbox" class="ml-3 block text-sm font-medium text-gray-800">
