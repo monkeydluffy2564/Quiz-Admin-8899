@@ -24,6 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.18/mammoth.browser.min.js"></script>
 	
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
 
     <!-- MathJax for rendering math formulas -->
     <script>
@@ -233,6 +234,19 @@
     position: relative;
     overflow: hidden;
     flex-grow: 1; /* คำสั่งสำคัญ: ทำให้ส่วนนี้ขยายเต็มพื้นที่ที่เหลือ */
+}
+
+.sortable-ghost {
+    opacity: 0.4;
+    background-color: #e0e7ff; /* สีม่วงอ่อนๆ เวลาเป็นเงา */
+    border: 2px dashed #6366f1;
+}
+.sortable-drag {
+    cursor: grabbing;
+    opacity: 1 !important;
+    background-color: white;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    transform: scale(1.02); /* ขยายใหญ่นิดนึงตอนถือ */
 }
 
 /* ▼▼▼ วางทับโค้ด #scratchpad-canvas เดิมด้วยโค้ดนี้ ▼▼▼ */
@@ -2225,5 +2239,6 @@ body.dimmed #dim-overlay {
 </div>
 
     <script type="module" src="script.min.js"></script>
+	
 </body>
 </html>
